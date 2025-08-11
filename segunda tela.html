@@ -37,7 +37,7 @@
 
   <script>
     function acessarDashboard(url, nivelNecessario) {
-      const nivelAcesso = parseInt(localStorage.getItem("nivel_de_acesso"));
+      const nivelAcesso = parseInt(localStorage.getItem("nivel_permissao"));
 
       if (!nivelAcesso || isNaN(nivelAcesso)) {
         alert("Usuário não autenticado. Faça login novamente.");
