@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Central de Dashboards</title>
+  <link rel="stylesheet" href="dashboards.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Dashboards Power BI</h1>
+    
+    <p>Escolha o dashboard que deseja acessar:</p>
+<br>
+    <ul class="lista-dash">
+      <li>
+        <a href="#" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/me/reports/87f9fe55-96f7-4c1f-9bbf-7d4b78abb1c8/8827a680a0090e103dbd?experience=power-bi&bookmarkGuid=f6f0e51f25c4191bed98', 3)">
+          Relatório Contas pagas e recebidas
+        </a>
+      </li>
+
+      <li>
+        <a href="#" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/me/reports/RELATORIO02', 2)">
+          Relatório Veículos (Produzindo)
+        </a>
+      </li>
+
+      <li>
+        <a href="#" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/me/reports/RELATORIO03', 1)">
+          Relatório de RH (Produzindo)
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <script>
+    function acessarDashboard(url, nivelNecessario) {
+      const nivelAcesso = parseInt(localStorage.getItem("nivel_de_acesso"));
+
+      if (!nivelAcesso || isNaN(nivelAcesso)) {
+        alert("Usuário não autenticado. Faça login novamente.");
+        window.location.replace("index.html");
+        return;
+      }
+
+      // Nível 1 vê tudo
+      if (nivelAcesso === 1) {
+        window.location.href = url;
+        return;
+      }
+
+      // Nível 2 só pode ver relatórios de nível 1 (RH)
+      if (nivelAcesso === 2 && nivelNecessario === 1) {
+        window.location.href = url;
+        return;
+      }
+
+      // Nível 3 só pode ver relatórios de nível 3 (Contas a pagar/receber)
+      if (nivelAcesso === 3 && nivelNecessario === 3) {
+        window.location.href = url;
+        return;
+      }
+
+      alert("Você não tem permissão para acessar este dashboard."
+      );
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.replace("index.html");
+    }
+  </script>
+</body>
+</html>
