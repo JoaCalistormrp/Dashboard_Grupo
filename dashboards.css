@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-     background: url(imagem.jpg);
+     background: url(imagem_tela2.jpg);
   background-size: cover;
 }
 
@@ -64,5 +64,6 @@ body {
   transform: scale(1.05);
   color: #ffffff;
 }
+
 
 
