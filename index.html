@@ -31,7 +31,9 @@
     </form>
   </main>
 
- <script>
+<script>
+  const urlBackend = "https://dashboard-grupo.onrender.com"; // base do backend
+
   document.getElementById("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -39,40 +41,36 @@
     const senha = document.getElementById("senha").value.trim();
 
     try {
-    const urlBackend = "https://dashboard-grupo.onrender.com/login";
-
-      const resposta = await fetch(urlBackend, {
+      const resposta = await fetch(`${urlBackend}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, senha })
       });
 
-      if (!resposta.ok) {
-        throw new Error('Erro na requisição ao servidor');
-      }
-
       const dados = await resposta.json();
 
-      if (dados.success) {  // corrigido para 'success'
-        const nivel = Number(dados.nivel_permissao); // corrigido para 'nivel_permissao'
+      if (resposta.ok && dados.success) {
+        const nivel = Number(dados.nivel_permissao);
 
         localStorage.setItem("usuario", usuario);
         localStorage.setItem("nivel_permissao", nivel);
 
-        window.location.replace("segunda tela.html");
+        window.location.replace("segunda_tela.html"); // ajuste para o nome real da página
       } else {
         alert(dados.mensagem || "Usuário ou senha incorretos.");
       }
     } catch (erro) {
-      alert("Erro ao conectar com o servidor458.");
+      alert("Erro ao conectar com o servidor.");
       console.error(erro);
     }
   });
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
