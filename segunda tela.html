@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <title>Central de Dashboards</title>
   <link rel="stylesheet" href="dashboards.css" />
 </head>
 <body>
+  <button onclick="logout()" style="position: fixed; top: 10px; right: 10px;">Sair</button>
+
   <main class="container">
     <h1>Dashboards Power BI</h1>
-    
     <p>Escolha o dashboard que deseja acessar:</p>
-<br>
+    <br>
     <ul class="lista-dash">
       <li>
         <a href="#" onclick="acessarDashboard(
@@ -18,14 +19,12 @@
           Relatório Contas pagas e recebidas
         </a>
       </li>
-
       <li>
         <a href="#" onclick="acessarDashboard(
           'https://app.powerbi.com/groups/me/reports/RELATORIO02', 2)">
           Relatório Veículos (Produzindo)
         </a>
       </li>
-
       <li>
         <a href="#" onclick="acessarDashboard(
           'https://app.powerbi.com/groups/me/reports/RELATORIO03', 1)">
@@ -36,35 +35,34 @@
   </main>
 
   <script>
-    function acessarDashboard(url, nivelNecessario) {
-      const nivelAcesso = parseInt(localStorage.getItem("nivel_permissao"));
+    window.onload = () => {
+      const nivelAcesso = localStorage.getItem("nivel_permissao");
+      if (!nivelAcesso) {
+        alert("Faça login para acessar os dashboards.");
+        window.location.replace("index.html");
+      }
+    };
 
-      if (!nivelAcesso || isNaN(nivelAcesso)) {
+    function acessarDashboard(url, nivelNecessario) {
+      const nivelAcesso = Number(localStorage.getItem("nivel_permissao"));
+
+      if (!nivelAcesso) {
         alert("Usuário não autenticado. Faça login novamente.");
         window.location.replace("index.html");
         return;
       }
 
-      // Nível 1 vê tudo
-      if (nivelAcesso === 1) {
-        window.location.href = url;
-        return;
-      }
+      const permissoes = {
+        1: [1, 2, 3], // Nível 1 vê tudo
+        2: [1],       // Nível 2 só vê nível 1
+        3: [3]        // Nível 3 só vê nível 3
+      };
 
-      // Nível 2 só pode ver relatórios de nível 1 (RH)
-      if (nivelAcesso === 2 && nivelNecessario === 1) {
+      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
         window.location.href = url;
-        return;
+      } else {
+        alert("Você não tem permissão para acessar este dashboard.");
       }
-
-      // Nível 3 só pode ver relatórios de nível 3 (Contas a pagar/receber)
-      if (nivelAcesso === 3 && nivelNecessario === 3) {
-        window.location.href = url;
-        return;
-      }
-
-      alert("Você não tem permissão para acessar este dashboard."
-      );
     }
 
     function logout() {
