@@ -14,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url(./img/imagem.jpg);
+  background: url(./imagem.jpg);
   background-size: cover;
   background-position: center;
 }
@@ -104,3 +104,4 @@ body {
   border-radius: 50px;
   margin-top: 15px; 
 }
+
