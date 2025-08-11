@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-    background: url(./img/imagem.jpg);
+    background: url(imagem.jpg);
   background-size: cover;
 }
 
@@ -64,3 +64,4 @@ body {
   transform: scale(1.05);
   color: #ffffff;
 }
+
