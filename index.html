@@ -1,75 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Power BI</title>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="acesso.css" />
-</head>
-<body>
-  <main class="container">
-    <form id="login-form">
-      <h1>Login</h1>
+<script>
+document.getElementById("login-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-      <div class="input-box">
-        <input id="usuario" type="text" placeholder="Usuário" required />
-        <i class="bx bxs-user"></i>
-      </div>
+  const usuario = document.getElementById("usuario").value.trim();
+  const senha = document.getElementById("senha").value.trim();
 
-      <div class="input-box">
-        <input id="senha" type="password" placeholder="Senha" required />
-        <i class="bx bxs-lock-alt"></i>
-      </div>
+  try {
+    const urlBackend = "https://seu-backend.onrender.com/login"; // ✅ URL do Render
 
-      <div class="remember-forgot">
-        <label><input type="checkbox" /> Lembrar senha</label>
-        <a href="#">Esqueci a senha</a>
-      </div>
+    const resposta = await fetch(urlBackend, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario, senha })
+    });
 
-      <button type="submit" class="Login">Login</button>
-    </form>
-  </main>
-
- <script>
-  document.getElementById("login-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-
-    try {
-      // Substitua pela URL do seu backend real (se hospedado, coloque o domínio/ IP público)
-      const urlBackend = "http://IP_OU_DOMINIO_DO_BACKEND:3000/login";
-
-      const resposta = await fetch(urlBackend, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario, senha })
-      });
-
-      if (!resposta.ok) {
-        throw new Error('Erro na requisição ao servidor');
-      }
-
-      const dados = await resposta.json();
-
-      if (dados.sucesso) {
-        const nivel = Number(dados.nivel_de_acesso);
-
-        localStorage.setItem("usuario", usuario);
-        localStorage.setItem("nivel_de_acesso", nivel);
-
-        window.location.replace("segunda tela.html");
-      } else {
-        alert(dados.mensagem || "Usuário ou senha incorretos.");
-      }
-    } catch (erro) {
-      alert("Erro ao conectar com o servidor.");
-      console.error(erro);
+    if (!resposta.ok) {
+      throw new Error('Erro na requisição ao servidor');
     }
-  });
-</script>
 
-</body>
-</html>
+    const dados = await resposta.json();
+
+    if (dados.success) { // ✅ ajustado
+      const nivel = Number(dados.nivel_permissao); // ✅ ajustado
+
+      localStorage.setItem("usuario", dados.usuario);
+      localStorage.setItem("nivel_permissao", nivel);
+
+      window.location.replace("segunda tela.html");
+    } else {
+      alert(dados.mensagem || "Usuário ou senha incorretos.");
+    }
+  } catch (erro) {
+    alert("Erro ao conectar com o servidor.");
+    console.error(erro);
+  }
+});
+</script>
