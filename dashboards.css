@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -12,58 +12,128 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-     background: url(imagem_tela2.jpg);
+  /* Sugestão: Use um gradiente escuro sobre a imagem para dar contraste */
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('imagem_tela2.jpg');
   background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+/* Botão de Logout Flutuante */
+.btn-logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: rgba(253, 152, 9, 0.8);
 }
 
 .container {
   width: 100%;
-  max-width: 500px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 40px 30px;
-  color: rgb(250, 155, 22);
-  text-align: center;
-  box-shadow: 0 8px 32px 0 rgba(2, 3, 8, 0.3);
+  max-width: 900px; /* Aumentei a largura para caber os cards */
 }
 
-.container h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
-  color: #ffae00;
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
 }
 
-.descricao {
-  font-size: 16px;
-  margin-bottom: 30px;
-  color: #eee;
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
-.lista-dash {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+header p {
+    opacity: 0.8;
+    font-weight: 300;
 }
 
-.lista-dash li a {
-  text-decoration: none;
-  color: #ffffff;
-  background-color: rgba(250, 155, 22, 0.9);
-  padding: 12px 20px;
-  border-radius: 30px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+/* Grid dos Cards */
+.grid-dashboards {
+    display: grid;
+    /* Cria duas colunas automaticamente */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
 }
 
-.lista-dash li a:hover {
-  background-color: rgb(202, 118, 0);
-  transform: scale(1.05);
-  color: #ffffff;
+/* Estilo do Cartão individual */
+.card {
+    background: rgba(255, 255, 255, 0.1); /* Fundo translúcido */
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Caso use tag <a> */
+    color: white;
 }
 
+.card:hover {
+    transform: translateY(-5px); /* Levanta o card */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-color: rgba(253, 152, 9, 0.5);
+}
 
+/* Ícone circular à esquerda */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #fd9809, #ffae00);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(253, 152, 9, 0.3);
+}
 
+/* Texto do Card */
+.card-content {
+    flex: 1; /* Ocupa o espaço restante */
+}
+
+.card-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.card-content span {
+    font-size: 13px;
+    opacity: 0.7;
+    font-weight: 300;
+}
+
+/* Setinha à direita */
+.arrow {
+    font-size: 24px;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+.card:hover .arrow {
+    opacity: 1;
+    transform: translateX(5px); /* Move a seta para direita */
+    color: #fd9809;
+}
