@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Central de Dashboards</title>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="dashboards.css" />
+  <meta charset="UTF-8" />
+  <title>Central de Dashboards</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="dashboards.css" />
 </head>
 <body>
-  
-  <button onclick="logout()" class="btn-logout">
-    <i class='bx bx-log-out'></i> Sair
-  </button>
+  
+  <button onclick="logout()" class="btn-logout">
+    <i class='bx bx-log-out'></i> Sair
+  </button>
 
-  <main class="container">
-    <header>
-        <h1>Central de Dados</h1>
-        <p>Selecione um departamento para visualizar os indicadores.</p>
-    </header>
+  <main class="container">
+    <header>
+        <h1>Central de Dados</h1>
+        <p>Selecione um departamento para visualizar os indicadores.</p>
+    </header>
 
-    <div class="grid-dashboards">
-      
-      <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/012d8745-c547-4960-a18c-a3d1468142f5/reports/b799a3b1-0558-4eef-80a3-9532c7afeebf/041908e9ce082c74edbd?experience=power-bi&bookmarkGuid=e4691c70de17d977e68b', 3)">
-        <div class="icon-box"><i class='bx bx-dollar-circle'></i></div>
-        <div class="card-content">
-            <h3>Financeiro</h3>
-            <span>Contas a Pagar & Receber</span>
-        </div>
-        <i class='bx bx-chevron-right arrow'></i>
-      </div>
+    <div class="grid-dashboards">
+      
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/012d8745-c547-4960-a18c-a3d1468142f5/reports/b799a3b1-0558-4eef-80a3-9532c7afeebf/041908e9ce082c74edbd?experience=power-bi&bookmarkGuid=e4691c70de17d977e68b', 3)">
+        <div class="icon-box"><i class='bx bx-dollar-circle'></i></div>
+        <div class="card-content">
+            <h3>Financeiro</h3>
+            <span>Contas a Pagar & Receber</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
 
-      <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/db856598-7716-4d80-a745-d179ca08f75f/reports/bc559057-d1ba-4af9-a064-e1380da76e27/d5e64ec0a38d310171ad?experience=power-bi', 2)">
-        <div class="icon-box"><i class='bx bx-package'></i></div>
-        <div class="card-content">
-            <h3>Logística</h3>
-            <span>Controle de Estoque</span>
-        </div>
-        <i class='bx bx-chevron-right arrow'></i>
-      </div>
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/db856598-7716-4d80-a745-d179ca08f75f/reports/bc559057-d1ba-4af9-a064-e1380da76e27/d5e64ec0a38d310171ad?experience=power-bi', 2)">
+        <div class="icon-box"><i class='bx bx-package'></i></div>
+        <div class="card-content">
+            <h3>Logística</h3>
+            <span>Controle de Estoque</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
 
-      <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/a9733c5a-6493-4931-bae6-3e67e335d2c4/reports/f111e63a-06ed-40a9-b846-9c750173f222/d73ba8dd702a268cdd17?experience=power-bi', 1)">
-        <div class="icon-box"><i class='bx bx-group'></i></div>
-        <div class="card-content">
-            <h3>Recursos Humanos</h3>
-            <span>Recrutamento e Seleção</span>
-        </div>
-        <i class='bx bx-chevron-right arrow'></i>
-      </div>
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/a9733c5a-6493-4931-bae6-3e67e335d2c4/reports/f111e63a-06ed-40a9-b846-9c750173f222/d73ba8dd702a268cdd17?experience=power-bi', 1)">
+        <div class="icon-box"><i class='bx bx-group'></i></div>
+        <div class="card-content">
+            <h3>Recursos Humanos</h3>
+            <span>Recrutamento e Seleção</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
 
-            <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi', 1)">
-        <div class="icon-box"><i class='bx bxs-truck'></i></div>
-        <div class="card-content">
-            <h3>Frotas</h3>
-            <span>Gestão de Veículos</span>
-        </div>
-        <i class='bx bx-chevron-right arrow'></i>
-      </div>
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi', 1)">
+        <div class="icon-box"><i class='bx bxs-truck'></i></div>
+        <div class="card-content">
+            <h3>Frotas</h3>
+            <span>Gestão de Veículos</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
 
-      <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/9d47b726-3019-4c1e-a5a0-4d0dbc893690/reports/586caaeb-8feb-42df-9983-04f26f81fdeb/6c9d73e24882fd5c3332?experience=power-bi', 2)">
-        <div class="icon-box"><i class='bx bx-time'></i></div> <div class="card-content">
-            <h3>Recursos Humanos</h3>
-            <span>Espelho de Ponto</span>
-        </div>
-        <i class='bx bx-chevron-right arrow'></i>
-      </div>
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/9d47b726-3019-4c1e-a5a0-4d0dbc893690/reports/586caaeb-8feb-42df-9983-04f26f81fdeb/6c9d73e24882fd5c3332?experience=power-bi', 2)">
+        <div class="icon-box"><i class='bx bx-time'></i></div> 
+        <div class="card-content">
+            <h3>Recursos Humanos</h3>
+            <span>Espelho de Ponto</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
 
-    </div>
-  </main>
+    </div>
+  </main>
 
-  <script>
-    window.onload = () => {
-      const nivelAcesso = localStorage.getItem("nivel_permissao");
-      if (!nivelAcesso) {
-        alert("Faça login para acessar os dashboards.");
-        window.location.replace("index.html");
-      }
-    };
+  <script>
+    window.onload = () => {
+      const nivelAcesso = localStorage.getItem("nivel_permissao");
+      if (!nivelAcesso) {
+        alert("Faça login para acessar os dashboards.");
+        window.location.replace("index.html");
+      }
+    };
 
-    function acessarDashboard(url, nivelNecessario) {
-      const nivelAcesso = Number(localStorage.getItem("nivel_permissao"));
+    function acessarDashboard(url, nivelNecessario) {
+      const nivelAcesso = Number(localStorage.getItem("nivel_permissao"));
 
-      if (!nivelAcesso) {
-        alert("Usuário não autenticado. Faça login novamente.");
-        window.location.replace("index.html");
-        return;
-      }
+      if (!nivelAcesso) {
+        alert("Usuário não autenticado. Faça login novamente.");
+        window.location.replace("index.html");
+        return;
+      }
 
-      const permissoes = {
-        1: [1, 2, 3], 
-        2: [2],         
-        3: [3]          
-      };
+      const permissoes = {
+        1: [1, 2, 3], // Nível 1 vê tudo
+        2: [2],         // Nível 2 só vê nível 2
+        3: [3]          // Nível 3 só vê nível 3
+      };
 
-      /* FIX 1: Corrigido o 'typo' de 'nivelNecessARIO' (maiúsculo)
-        para 'nivelNecessario' (minúsculo)
-      */
-      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
-        window.location.href = url;
-      } else {
-        alert("Você não tem permissão para acessar este dashboard.");
-      }
-    }
+      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
+        window.location.href = url;
+      } else {
+        alert("Você não tem permissão para acessar este dashboard.");
+      }
+    }
 
-    function logout() {
-      localStorage.clear();
-      window.location.replace("index.html");
-    }
-  </script>
+    function logout() {
+      localStorage.clear();
+      window.location.replace("index.html");
+    }
+  </script>
 </body>
 </html>
