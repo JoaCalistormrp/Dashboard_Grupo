@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  /* Sugestão: Use um gradiente escuro sobre a imagem para dar contraste */
   background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('imagem_tela2.jpg');
   background-size: cover;
   background-position: center;
@@ -42,7 +43,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 900px;
+  max-width: 900px; /* Aumentei a largura para caber os cards */
 }
 
 header {
@@ -65,14 +66,15 @@ header p {
 /* Grid dos Cards */
 .grid-dashboards {
     display: grid;
+    /* Cria duas colunas automaticamente */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 20px;
 }
 
 /* Estilo do Cartão individual */
 .card {
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px); 
+    background: rgba(255, 255, 255, 0.1); /* Fundo translúcido */
+    backdrop-filter: blur(10px); /* Efeito de vidro */
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 16px;
@@ -81,12 +83,12 @@ header p {
     gap: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none;
+    text-decoration: none; /* Caso use tag <a> */
     color: white;
 }
 
 .card:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-5px); /* Levanta o card */
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     border-color: rgba(253, 152, 9, 0.5);
@@ -96,7 +98,6 @@ header p {
 .icon-box {
     width: 50px;
     height: 50px;
-    min-width: 50px; /* Garante que não vai encolher */
     background: linear-gradient(135deg, #fd9809, #ffae00);
     border-radius: 12px;
     display: flex;
@@ -110,17 +111,12 @@ header p {
 /* Texto do Card */
 .card-content {
     flex: 1; /* Ocupa o espaço restante */
-    overflow: hidden; /* Evita que texto longo quebre o layout */
 }
 
 .card-content h3 {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 4px;
-    /* Adiciona "..." se o texto for muito longo */
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .card-content span {
@@ -138,6 +134,6 @@ header p {
 
 .card:hover .arrow {
     opacity: 1;
-    transform: translateX(5px);
+    transform: translateX(5px); /* Move a seta para direita */
     color: #fd9809;
 }
