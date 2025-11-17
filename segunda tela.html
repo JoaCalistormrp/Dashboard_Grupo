@@ -51,7 +51,7 @@
       </div>
 
       <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi', 1)">
+          'https.app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi', 1)">
         <div class="icon-box"><i class='bx bxs-truck'></i></div>
         <div class="card-content">
             <h3>Frotas</h3>
@@ -60,11 +60,20 @@
         <i class='bx bx-chevron-right arrow'></i>
       </div>
 
+      <div class="card" onclick="acessarDashboard(
+          'https://app.powerbi.com/groups/9d47b726-3019-4c1e-a5a0-4d0dbc893690/reports/586caaeb-8feb-42df-9983-04f26f81fdeb/6c9d73e24882fd5c3332?experience=power-bi', 2)">
+        <div class="icon-box"><i class='bx bx-time'></i></div> <div class="card-content">
+            <h3>Logística</h3>
+            <span>Espelho de Ponto</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
     </div>
   </main>
 
   <script>
-     window.onload = () => {
+    window.onload = () => {
       const nivelAcesso = localStorage.getItem("nivel_permissao");
       if (!nivelAcesso) {
         alert("Faça login para acessar os dashboards.");
@@ -81,13 +90,14 @@
         return;
       }
 
+      // LÓGICA DE PERMISSÃO CORRIGIDA
       const permissoes = {
         1: [1, 2, 3], // Nível 1 vê tudo
-        2: [1],       // Nível 2 só vê nível 1
-        3: [3]        // Nível 3 só vê nível 3
+        2: [2],         // Nível 2 só vê nível 2
+        3: [3]          // Nível 3 só vê nível 3
       };
 
-      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
+      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessARIO)) {
         window.location.href = url;
       } else {
         alert("Você não tem permissão para acessar este dashboard.");
@@ -101,12 +111,3 @@
   </script>
 </body>
 </html>
-
- 
-
-
-
-
-
-
-
