@@ -98,6 +98,8 @@ header p {
 .icon-box {
     width: 50px;
     height: 50px;
+    /* Garante que o ícone não encolha */
+    min-width: 50px; 
     background: linear-gradient(135deg, #fd9809, #ffae00);
     border-radius: 12px;
     display: flex;
@@ -111,12 +113,18 @@ header p {
 /* Texto do Card */
 .card-content {
     flex: 1; /* Ocupa o espaço restante */
+    /* Evita que texto muito longo quebre o layout */
+    overflow: hidden; 
 }
 
 .card-content h3 {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 4px;
+    /* Três pontinhos (...) se o texto for longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-content span {
