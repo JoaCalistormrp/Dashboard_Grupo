@@ -136,7 +136,7 @@
 }
 
 .remember-forgot a {
-  color: #000000;
+  color: rgb(0,0,0);
   text-decoration: none;
   font-weight: 600;
 }
@@ -203,4 +203,5 @@
     display: none;
   }
 }
+
 
