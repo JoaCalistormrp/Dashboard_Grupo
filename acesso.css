@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-/* Reset e fontes */
 * {
   margin: 0;
   padding: 0;
@@ -8,101 +7,265 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Corpo */
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background: url(imagem.jpg);
-  background-size: cover;
-  background-position: center;
+  background: #0b0f16;
 }
 
-/* Container */
-.container {
-  width: 420px;
-  background-color: white;
-  /*backdrop-filter: blur(5px); /* aplica o desfoque */
-  /*-webkit-backdrop-filter: blur(10px); /* para compatibilidade */
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  color: #000000;
-  padding: 30px 40px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+/* ====== LAYOUT SPLIT ====== */
+.auth-page{
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
 }
 
-.container h1 {
-  font-size: 36px;
-  text-align: center;
-  color:  rgb(250, 155, 22);
+/* ====== ESQUERDA (degradê + glow) ====== */
+.auth-left{
+  position: relative;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+
+  /* degradê “iluminação” */
+  background: radial-gradient(1200px 800px at 15% 25%,
+      rgba(255, 220, 140, 0.35) 0%,
+      rgba(255, 160, 60, 0.22) 32%,
+      rgba(255, 100, 0, 0.10) 55%,
+      rgba(10, 14, 22, 0) 72%),
+    linear-gradient(135deg,
+      #ff7a00 0%,
+      #ff9a1f 38%,
+      #ffb84a 62%,
+      #121826 100%);
+  overflow: hidden;
 }
 
-/* Input box */
+/* “feixes de luz” decorativos */
+.auth-left::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    repeating-linear-gradient(60deg,
+      rgba(255,255,255,0.10) 0px,
+      rgba(255,255,255,0.10) 2px,
+      rgba(255,255,255,0.00) 10px,
+      rgba(255,255,255,0.00) 22px);
+  filter: blur(1px);
+  opacity: 0.35;
+  transform: rotate(-10deg);
+  pointer-events: none;
+}
+
+.auth-left::after{
+  content:"";
+  position:absolute;
+  width: 520px;
+  height: 520px;
+  right: -260px;
+  top: -260px;
+  background: radial-gradient(circle,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.0) 70%);
+  opacity: .65;
+  pointer-events: none;
+}
+
+/* topo/branding */
+.brand{
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.brand-badge{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+}
+
+.brand-badge i{
+  font-size: 22px;
+}
+
+.brand-text h2{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.brand-text p{
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* card do login */
+.login-card{
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
+}
+
+.container{
+  /* agora o container é o seu form-card */
+  width: 100%;
+  background: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 30px 32px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 14px 40px;
+}
+
+.container h1{
+  font-size: 34px;
+  text-align: left;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+/* ====== INPUTS ====== */
 .input-box {
   position: relative;
-  width: 95%;
-  height: 50px;
-  margin: 30px 0;
+  width: 100%;
+  height: 52px;
+  margin: 18px 0;
 }
 
 .input-box input {
   width: 100%;
-  background-color: transparent;
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.18);
   outline: none;
-  font-size: 16px;
-  color: #000000;
-  padding: 20px 40px 20px 20px;
+  font-size: 15px;
+  color: #111827;
+  padding: 0 44px 0 14px;
+  background: rgba(255,255,255,0.85);
+}
+
+.input-box input:focus{
+  border-color: rgba(255, 122, 0, 0.6);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.12);
 }
 
 .input-box input::placeholder {
-  color: #5e5858;
+  color: #6b7280;
 }
 
 .input-box i {
   position: absolute;
-  right: 20px;
-  top: 70%;
+  right: 14px;
+  top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
-  color: #333;
+  color: rgba(17, 24, 39, 0.6);
 }
 
 /* Lembrar e esqueci a senha */
 .remember-forgot {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
 }
 
-.remember-forgot label input {
-  accent-color: #fff;
+.remember-forgot label{
+  font-size: 12px;
+  color: #111827;
+  opacity: .85;
 }
 
-.remember-forgot a {
+.remember-forgot a{
+  font-size: 12px;
   text-decoration: none;
-  color: rgb(250, 155, 22);
+  color: #ff7a00;
+  font-weight: 600;
 }
 
-.remember-forgot a:hover {
+.remember-forgot a:hover{
   text-decoration: underline;
 }
 
-/* Botão de login */
+/* Botão */
 .Login {
- width: 100%;
-  height: 48px;
-  background-color: rgb(253, 152, 9);
+  width: 100%;
+  height: 50px;
+  margin-top: 18px;
   border: none;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 50px;
-  margin-top: 15px; 
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+
+  background: linear-gradient(90deg, #ffd36a 0%, #ff9a1f 45%, #ff7a00 100%);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+  transition: transform .12s ease, filter .12s ease;
 }
 
+.Login:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
 
+.Login:active{
+  transform: translateY(0px);
+}
+
+/* rodapé */
+.footer-note{
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  color: rgba(255,255,255,0.88);
+  font-size: 12px;
+}
+
+/* ====== DIREITA (imagem) ====== */
+.auth-right{
+  background: #0b0f16;
+  position: relative;
+
+  /* Use sua imagem atual aqui */
+  background-image: url("imagem.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* overlay suave p/ não estourar */
+.auth-right::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(800px 420px at 60% 25%,
+    rgba(255, 190, 80, 0.12) 0%,
+    rgba(0,0,0,0.55) 58%,
+    rgba(0,0,0,0.75) 100%);
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 900px){
+  .auth-page{
+    grid-template-columns: 1fr;
+  }
+  .auth-right{
+    display: none;
+  }
+  .auth-left{
+    padding: 28px;
+  }
+  .login-card{
+    max-width: 520px;
+    width: 100%;
+  }
+}
