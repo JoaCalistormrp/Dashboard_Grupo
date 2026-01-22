@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Power BI</title>
+  <title>Login - Central de Dados</title>
 
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="acesso.css" />
@@ -12,17 +12,18 @@
 <body>
   <main class="auth-page">
 
-    <!-- LADO ESQUERDO (degradê + login) -->
+    <!-- LADO ESQUERDO -->
     <section class="auth-left">
+
       <div class="brand">
         <div class="brand-badge"><i class='bx bxs-bulb'></i></div>
         <div class="brand-text">
           <h2>Central de Dados</h2>
-          <p>Indicadores e dashboards da companhia</p>
+          <p>Sistema de indicadores</p>
         </div>
       </div>
 
-      <div class="login-card">
+      <div class="login-card container">
         <form id="login-form">
           <h1>Login</h1>
 
@@ -46,50 +47,53 @@
       </div>
 
       <p class="footer-note">© 2026 • Iluminação & Dados</p>
+
     </section>
 
-    <!-- LADO DIREITO (imagem) -->
-    <section class="auth-right">
-      <!-- Se quiser usar <img> ao invés de background, descomente abaixo:
-      <img class="hero-img" src="imagem.jpg" alt="Ilustração" />
-      -->
-    </section>
+    <!-- LADO DIREITO -->
+    <section class="auth-right"></section>
 
   </main>
 
-  <script>
-    const urlBackend = "https://dashboard-grupo.onrender.com"; // base do backend
+<script>
+const urlBackend = "https://dashboard-grupo.onrender.com";
 
-    document.getElementById("login-form").addEventListener("submit", async function (e) {
-      e.preventDefault();
+// Se já estiver logado, pula login
+window.onload = () => {
+  const nivel = localStorage.getItem("nivel_permissao");
+  if (nivel) {
+    window.location.replace("segunda tela.html");
+  }
+};
 
-      const usuario = document.getElementById("usuario").value.trim();
-      const senha = document.getElementById("senha").value.trim();
+document.getElementById("login-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-      try {
-        const resposta = await fetch(`${urlBackend}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ usuario, senha })
-        });
+  const usuario = document.getElementById("usuario").value.trim();
+  const senha = document.getElementById("senha").value.trim();
 
-        const dados = await resposta.json();
-
-        if (resposta.ok && dados.success) {
-          const nivel = Number(dados.nivel_permissao);
-
-          localStorage.setItem("usuario", usuario);
-          localStorage.setItem("nivel_permissao", nivel);
-
-          window.location.replace("segunda tela.html");
-        } else {
-          alert(dados.mensagem || "Usuário ou senha incorretos.");
-        }
-      } catch (erro) {
-        alert("Erro ao conectar com o servidor.");
-        console.error(erro);
-      }
+  try {
+    const resposta = await fetch(`${urlBackend}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario, senha })
     });
-  </script>
+
+    const dados = await resposta.json();
+
+    if (resposta.ok && dados.success) {
+      localStorage.setItem("usuario", usuario);
+      localStorage.setItem("nivel_permissao", dados.nivel_permissao);
+
+      window.location.replace("segunda tela.html");
+    } else {
+      alert(dados.mensagem || "Usuário ou senha incorretos.");
+    }
+  } catch {
+    alert("Erro ao conectar com o servidor.");
+  }
+});
+</script>
+
 </body>
 </html>
