@@ -4,75 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login Power BI</title>
+
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="acesso.css" />
 </head>
+
 <body>
-  <main class="container">
-    <form id="login-form">
-      <h1>Login</h1>
+  <main class="auth-page">
 
-      <div class="input-box">
-        <input id="usuario" type="text" placeholder="Usuário" required />
-        <i class="bx bxs-user"></i>
+    <!-- LADO ESQUERDO (degradê + login) -->
+    <section class="auth-left">
+      <div class="brand">
+        <div class="brand-badge"><i class='bx bxs-bulb'></i></div>
+        <div class="brand-text">
+          <h2>Central de Dados</h2>
+          <p>Indicadores e dashboards da companhia</p>
+        </div>
       </div>
 
-      <div class="input-box">
-        <input id="senha" type="password" placeholder="Senha" required />
-        <i class="bx bxs-lock-alt"></i>
+      <div class="login-card">
+        <form id="login-form">
+          <h1>Login</h1>
+
+          <div class="input-box">
+            <input id="usuario" type="text" placeholder="Usuário" required />
+            <i class="bx bxs-user"></i>
+          </div>
+
+          <div class="input-box">
+            <input id="senha" type="password" placeholder="Senha" required />
+            <i class="bx bxs-lock-alt"></i>
+          </div>
+
+          <div class="remember-forgot">
+            <label><input type="checkbox" /> Lembrar senha</label>
+            <a href="#">Esqueci a senha</a>
+          </div>
+
+          <button type="submit" class="Login">Entrar</button>
+        </form>
       </div>
 
-      <div class="remember-forgot">
-        <label><input type="checkbox" /> Lembrar senha</label>
-        <a href="#">Esqueci a senha</a>
-      </div>
+      <p class="footer-note">© 2026 • Iluminação & Dados</p>
+    </section>
 
-      <button type="submit" class="Login">Login</button>
-    </form>
+    <!-- LADO DIREITO (imagem) -->
+    <section class="auth-right">
+      <!-- Se quiser usar <img> ao invés de background, descomente abaixo:
+      <img class="hero-img" src="imagem.jpg" alt="Ilustração" />
+      -->
+    </section>
+
   </main>
 
-<script>
-  const urlBackend = "https://dashboard-grupo.onrender.com"; // base do backend
+  <script>
+    const urlBackend = "https://dashboard-grupo.onrender.com"; // base do backend
 
-  document.getElementById("login-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
+    document.getElementById("login-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
+      const usuario = document.getElementById("usuario").value.trim();
+      const senha = document.getElementById("senha").value.trim();
 
-    try {
-      const resposta = await fetch(`${urlBackend}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario, senha })
-      });
+      try {
+        const resposta = await fetch(`${urlBackend}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ usuario, senha })
+        });
 
-      const dados = await resposta.json();
+        const dados = await resposta.json();
 
-      if (resposta.ok && dados.success) {
-        const nivel = Number(dados.nivel_permissao);
+        if (resposta.ok && dados.success) {
+          const nivel = Number(dados.nivel_permissao);
 
-        localStorage.setItem("usuario", usuario);
-        localStorage.setItem("nivel_permissao", nivel);
+          localStorage.setItem("usuario", usuario);
+          localStorage.setItem("nivel_permissao", nivel);
 
-        window.location.replace("segunda tela.html"); // ajuste para o nome real da página
-      } else {
-        alert(dados.mensagem || "Usuário ou senha incorretos.");
+          window.location.replace("segunda tela.html");
+        } else {
+          alert(dados.mensagem || "Usuário ou senha incorretos.");
+        }
+      } catch (erro) {
+        alert("Erro ao conectar com o servidor.");
+        console.error(erro);
       }
-    } catch (erro) {
-      alert("Erro ao conectar com o servidor.");
-      console.error(erro);
-    }
-  });
-</script>
-
-
-
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
