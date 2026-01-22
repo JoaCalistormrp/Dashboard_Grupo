@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 * {
   margin: 0;
@@ -7,28 +7,22 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: #0b0f16;
-}
-
-/* ====== LAYOUT SPLIT ====== */
-.auth-page{
+.auth-page {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
 }
 
-/* ====== ESQUERDA (degradê + glow) ====== */
-.auth-left{
-  position: relative;
-  padding: 48px;
+/* ===== LADO ESQUERDO ===== */
+.auth-left {
+  padding: 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 18px;
+  gap: 20px;
+  color: white;
+  position: relative;
 
-  /* degradê “iluminação” */
   background: radial-gradient(1200px 800px at 15% 25%,
       rgba(255, 220, 140, 0.35) 0%,
       rgba(255, 160, 60, 0.22) 32%,
@@ -36,214 +30,161 @@ body {
       rgba(10, 14, 22, 0) 72%),
     linear-gradient(135deg,
       #ff7a00 0%,
-      #ff9a1f 38%,
-      #ffb84a 62%,
+      #ff9a1f 40%,
+      #ffb84a 65%,
       #121826 100%);
-  overflow: hidden;
 }
 
-/* “feixes de luz” decorativos */
-.auth-left::before{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:
-    repeating-linear-gradient(60deg,
-      rgba(255,255,255,0.10) 0px,
-      rgba(255,255,255,0.10) 2px,
-      rgba(255,255,255,0.00) 10px,
-      rgba(255,255,255,0.00) 22px);
-  filter: blur(1px);
-  opacity: 0.35;
-  transform: rotate(-10deg);
-  pointer-events: none;
-}
-
-.auth-left::after{
-  content:"";
-  position:absolute;
-  width: 520px;
-  height: 520px;
-  right: -260px;
-  top: -260px;
-  background: radial-gradient(circle,
-    rgba(255,255,255,0.35) 0%,
-    rgba(255,255,255,0.0) 70%);
-  opacity: .65;
-  pointer-events: none;
-}
-
-/* topo/branding */
-.brand{
-  position: relative;
-  z-index: 2;
+/* Branding */
+.brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #fff;
 }
 
-.brand-badge{
+.brand-badge {
   width: 44px;
   height: 44px;
   border-radius: 14px;
   display: grid;
   place-items: center;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
   backdrop-filter: blur(10px);
 }
 
-.brand-badge i{
+.brand-badge i {
   font-size: 22px;
 }
 
-.brand-text h2{
+.brand-text h2 {
   font-size: 18px;
   font-weight: 700;
-  line-height: 1.1;
 }
 
-.brand-text p{
+.brand-text p {
   font-size: 12px;
   opacity: 0.9;
 }
 
-/* card do login */
-.login-card{
-  position: relative;
-  z-index: 2;
+/* ===== LOGIN SEM FUNDO ===== */
+.login-card {
   max-width: 420px;
+  margin-top: 20px;
 }
 
-.container{
-  /* agora o container é o seu form-card */
-  width: 100%;
-  background: rgba(255,255,255,0.92);
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.35);
-  padding: 30px 32px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 14px 40px;
+.container {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
 }
 
-.container h1{
-  font-size: 34px;
-  text-align: left;
-  color: #111827;
-  margin-bottom: 6px;
+.container h1 {
+  font-size: 36px;
+  margin-bottom: 8px;
+  color: white;
 }
 
-/* ====== INPUTS ====== */
+/* ===== INPUTS ===== */
 .input-box {
   position: relative;
   width: 100%;
-  height: 52px;
+  height: 54px;
   margin: 18px 0;
 }
 
 .input-box input {
   width: 100%;
-  height: 52px;
-  border-radius: 12px;
-  border: 1px solid rgba(17, 24, 39, 0.18);
-  outline: none;
+  height: 54px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.10);
+  color: white;
+  padding: 0 46px 0 16px;
   font-size: 15px;
-  color: #111827;
-  padding: 0 44px 0 14px;
-  background: rgba(255,255,255,0.85);
-}
-
-.input-box input:focus{
-  border-color: rgba(255, 122, 0, 0.6);
-  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.12);
+  outline: none;
+  backdrop-filter: blur(12px);
 }
 
 .input-box input::placeholder {
-  color: #6b7280;
+  color: rgba(255,255,255,0.7);
+}
+
+.input-box input:focus {
+  border-color: rgba(255, 210, 120, 0.9);
+  box-shadow: 0 0 0 4px rgba(255, 160, 60, 0.25);
 }
 
 .input-box i {
   position: absolute;
-  right: 14px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
-  color: rgba(17, 24, 39, 0.6);
+  color: rgba(255,255,255,0.85);
 }
 
-/* Lembrar e esqueci a senha */
+/* ===== LEMBRAR / ESQUECI ===== */
 .remember-forgot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
+  font-size: 12px;
 }
 
-.remember-forgot label{
-  font-size: 12px;
-  color: #111827;
-  opacity: .85;
+.remember-forgot label {
+  opacity: 0.9;
 }
 
-.remember-forgot a{
-  font-size: 12px;
+.remember-forgot a {
+  color: #ffd36a;
   text-decoration: none;
-  color: #ff7a00;
   font-weight: 600;
 }
 
-.remember-forgot a:hover{
+.remember-forgot a:hover {
   text-decoration: underline;
 }
 
-/* Botão */
+/* ===== BOTÃO ===== */
 .Login {
   width: 100%;
-  height: 50px;
+  height: 52px;
   margin-top: 18px;
   border: none;
-  cursor: pointer;
   border-radius: 999px;
-  font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
   color: #111827;
+  font-size: 14px;
 
-  background: linear-gradient(90deg, #ffd36a 0%, #ff9a1f 45%, #ff7a00 100%);
-  box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+  background: linear-gradient(90deg, #ffd36a, #ff9a1f, #ff7a00);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.35);
   transition: transform .12s ease, filter .12s ease;
 }
 
-.Login:hover{
+.Login:hover {
   transform: translateY(-1px);
-  filter: brightness(1.03);
+  filter: brightness(1.04);
 }
 
-.Login:active{
+.Login:active {
   transform: translateY(0px);
 }
 
-/* rodapé */
-.footer-note{
-  position: relative;
-  z-index: 2;
+/* ===== TEXTO FINAL ===== */
+.footer-note {
   margin-top: auto;
-  color: rgba(255,255,255,0.88);
   font-size: 12px;
+  opacity: 0.85;
 }
 
-/* ====== DIREITA (imagem) ====== */
-.auth-right{
-  background: #0b0f16;
+/* ===== LADO DIREITO ===== */
+.auth-right {
+  background: url("imagem.jpg") center/cover no-repeat;
   position: relative;
-
-  /* Use sua imagem atual aqui */
-  background-image: url("imagem.jpg");
-  background-size: cover;
-  background-position: center;
 }
 
-/* overlay suave p/ não estourar */
-.auth-right::before{
+.auth-right::before {
   content:"";
   position:absolute;
   inset:0;
@@ -253,19 +194,12 @@ body {
     rgba(0,0,0,0.75) 100%);
 }
 
-/* ====== RESPONSIVO ====== */
-@media (max-width: 900px){
-  .auth-page{
+/* ===== RESPONSIVO ===== */
+@media (max-width: 900px) {
+  .auth-page {
     grid-template-columns: 1fr;
   }
-  .auth-right{
+  .auth-right {
     display: none;
-  }
-  .auth-left{
-    padding: 28px;
-  }
-  .login-card{
-    max-width: 520px;
-    width: 100%;
   }
 }
