@@ -73,7 +73,7 @@
         <i class='bx bx-chevron-right arrow'></i>
       </div>
       <div class="card" onclick="acessarDashboard(
-          'https://app.powerbi.com/reportEmbed?reportId=586caaeb-8feb-42df-9983-04f26f81fdeb&autoAuth=true&ctid=bc7a02d4-bde0-4789-aec7-da1142be24a1" frameborder="0" allowFullScreen="true"', 3,1)">
+          'https://app.powerbi.com/reportEmbed?reportId=586caaeb-8feb-42df-9983-04f26f81fdeb&autoAuth=true&ctid=bc7a02d4-bde0-4789-aec7-da1142be24a1" frameborder="0" allowFullScreen="true"', 3)">
         <div class="icon-box"><i class='bx bx-bar-chart-alt'></i></div> 
         <div class="card-content">
             <h3>Planejamento</h3>
@@ -108,6 +108,7 @@
         2: [2],  // Nível 2 só vê nível 2
         3: [3],   // Nível 3 só vê nível 3
         4: [1, 2, 3] // Nível 4 vê TUDO
+        5: [1, 3] // Nível 4 vê 1 e 3
       };
 
       if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
@@ -124,3 +125,4 @@
   </script>
 </body>
 </html>
+
