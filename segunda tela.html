@@ -86,44 +86,44 @@
     </div>
   </main>
 
-  <script>
-    window.onload = () => {
-      const nivelAcesso = localStorage.getItem("nivel_permissao");
-      if (!nivelAcesso) {
-        alert("Faça login para acessar os dashboards.");
-        window.location.replace("index.html");
-      }
-    };
-
-    function acessarDashboard(url, nivelNecessario) {
-      const nivelAcesso = Number(localStorage.getItem("nivel_permissao"));
-
-      if (!nivelAcesso) {
-        alert("Usuário não autenticado. Faça login novamente.");
-        window.location.replace("index.html");
-        return;
-      }
-
-      const permissoes = {
-        1: [1], // Nível 1 só vê nível 1
-        2: [2],  // Nível 2 só vê nível 2
-        3: [3],   // Nível 3 só vê nível 3
-        4: [1, 2, 3] // Nível 4 vê TUDO
-        5: [1, 3] // Nível 5 vê 1 e 3
-      };
-
-      if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
-        window.location.href = url;
-      } else {
-        alert("Você não tem permissão para acessar este dashboard.");
-      }
-    }
-
-    function logout() {
-      localStorage.clear();
+ <script>
+  window.onload = () => {
+    const nivelAcesso = localStorage.getItem("nivel_permissao");
+    if (!nivelAcesso) {
+      alert("Faça login para acessar os dashboards.");
       window.location.replace("index.html");
     }
-  </script>
+  };
+
+  function acessarDashboard(url, nivelNecessario) {
+    const nivelAcesso = Number(localStorage.getItem("nivel_permissao"));
+
+    if (!nivelAcesso) {
+      alert("Usuário não autenticado. Faça login novamente.");
+      window.location.replace("index.html");
+      return;
+    }
+
+    // Objeto corrigido
+    const permissoes = {
+      1: [1, 3],
+      2: [2],
+      3: [3],
+      4: [1, 2, 3, 4] 
+    };
+
+    if (permissoes[nivelAcesso] && permissoes[nivelAcesso].includes(nivelNecessario)) {
+      window.open(url, '_blank'); // Dica: use _blank para abrir em nova aba e não perder a central
+    } else {
+      alert("Você não tem permissão para acessar este dashboard.");
+    }
+  }
+
+  function logout() {
+    localStorage.clear();
+    window.location.replace("index.html");
+  }
+</script>
 </body>
 </html>
 
