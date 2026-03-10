@@ -1,5 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -33,13 +53,23 @@ body {
     align-items: center;
     gap: 5px;
     backdrop-filter: blur(5px);
-    transition: 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    font-size: 13px;
 }
 
 .btn-logout:hover {
-    background: rgba(253, 152, 9, 0.8);
+    background: rgba(253, 152, 9, 0.9);
+    border-color: rgba(253, 152, 9, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(253, 152, 9, 0.3);
 }
 
+.btn-logout:active {
+    transform: translateY(0);
+}
+
+    animation: slideUp 0.6s ease-out;
 .container {
   width: 100%;
   max-width: 900px;
@@ -53,7 +83,11 @@ header {
 
 header h1 {
     font-size: 2.5rem;
-    margin-bottom: 10px;
+    margin-bottom700;
+    background: linear-gradient(135deg, #ffd36a, #ff9a1f, #ffb84a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text0px;
     font-weight: 600;
 }
 
@@ -61,7 +95,7 @@ header p {
     opacity: 0.8;
     font-weight: 300;
 }
-
+4
 /* Grid dos Cards */
 .grid-dashboards {
     display: grid;
@@ -76,16 +110,50 @@ header p {
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 16px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    display: flex;4s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     color: white;
+    position: relative;
+    animation: slideUp 0.6s ease-out both;
+    overflow: hidden;
 }
 
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left
+    background: linear-gradient(135deg, #fd9809, #ffae00);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(253, 152, 9, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.card:hover .icon-box {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: 0 8px 20px rgba(253, 152, 9, 0.5);
+    background: linear-gradient(135deg, #ffae00, #ffc107
+.card:nth-child(6) { animation-delay: 0.6s; }
+
 .card:hover {
+    transform: translateY(-8px); 
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(253, 152, 9, 0.15);
+    border-color: rgba(253, 152, 9, 0.6);
+}
+
+.card:hover::before {
+    left: 100%
     transform: translateY(-5px); 
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -99,13 +167,14 @@ header p {
     min-width: 50px; /* Garante que não vai encolher */
     background: linear-gradient(135deg, #fd9809, #ffae00);
     border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: white;
-    box-shadow: 0 4px 10px rgba(253, 152, 9, 0.3);
+    display: fleall 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
 }
+
+.card:hover .arrow {
+    opacity: 1;
+    transform: translateX(8px);
+    color: #ffc107
 
 /* Texto do Card */
 .card-content {
