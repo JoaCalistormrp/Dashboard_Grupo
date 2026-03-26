@@ -217,7 +217,7 @@
         <i class='bx bx-chevron-right arrow'></i>
       </div>
 
-      <div class="card" data-nivel="4" onclick="acessarDashboard('https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi')">
+      <div class="card" data-nivel="5" onclick="acessarDashboard('https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi')">
         <div class="icon-box"><i class='bx bxs-truck'></i></div>
         <div class="card-content">
             <h3>Frotas</h3>
@@ -263,6 +263,9 @@
       2: [2],          // Nível 2 vê Logística e RH Ponto(2)
       3: [3],          // Nível 3 vê Planejamento(3)
       4: [1, 2, 3, 4]  // Nível 4 vê Tudo
+      5: [5], // Nivel 5 vê Frotas
+
+      
     };
 
     const meusAcessos = permissoes[nivelUsuario] || [];
