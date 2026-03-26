@@ -46,7 +46,7 @@
         gap: 0.5rem;
         transition: all 0.2s ease;
         box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-        z-index: 10;
+        z-index: 100; /* Aumentado para garantir clique */
     }
 
     .btn-logout:hover {
@@ -94,7 +94,7 @@
         background: var(--card-bg);
         border-radius: 20px;
         padding: 2rem;
-        display: flex;
+        display: none; /* Mantido como none, o JS vai ativar */
         align-items: center;
         gap: 1.5rem;
         cursor: pointer;
@@ -103,8 +103,6 @@
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         position: relative;
         overflow: hidden;
-        /* Inicialmente oculto para evitar "piscada" de conteúdo não autorizado */
-        display: none; 
     }
     
     .card::before {
@@ -122,13 +120,10 @@
         border-color: transparent;
     }
     
-    .card:hover::before {
-        opacity: 1;
-    }
+    .card:hover::before { opacity: 1; }
 
     .icon-box {
-        width: 64px;
-        height: 64px;
+        width: 64px; height: 64px;
         background: #eff6ff;
         border-radius: 16px;
         display: flex;
@@ -153,10 +148,7 @@
         font-weight: 600;
     }
 
-    .card-content span {
-        font-size: 0.9rem;
-        color: #64748b;
-    }
+    .card-content span { font-size: 0.9rem; color: #64748b; }
 
     .arrow {
         font-size: 1.5rem;
@@ -248,8 +240,20 @@
   </main>
 
 <script>
+  // Função de logout movida para fora para garantir acesso global
+  function logout() {
+    console.log("Saindo...");
+    localStorage.clear();
+    window.location.replace("index.html");
+  }
+
+  function acessarDashboard(url) {
+    window.open(url, '_blank');
+  }
+
   window.onload = () => {
     const nivelUsuario = Number(localStorage.getItem("nivel_permissao"));
+    console.log("Nível do usuário logado:", nivelUsuario);
     
     if (!nivelUsuario) {
       alert("Faça login para acessar os dashboards.");
@@ -257,15 +261,13 @@
       return;
     }
 
-    // Mapeamento de permissões conforme seu código original
+    // MAPA DE PERMISSÕES CORRIGIDO
     const permissoes = {
-      1: [1, 3],       // Nível 1 vê Financeiro(1) e Planejamento(3)
-      2: [2],          // Nível 2 vê Logística e RH Ponto(2)
-      3: [3],          // Nível 3 vê Planejamento(3)
-      4: [1, 2, 3, 4]  // Nível 4 vê Tudo
-      5: [5], // Nivel 5 vê Frotas
-
-      
+      1: [1, 3],       // Nível 1: Financeiro(1) e Planejamento(3)
+      2: [2],          // Nível 2: Logística e RH Ponto(2)
+      3: [3],          // Nível 3: Planejamento(3)
+      4: [1, 2, 3, 4], // Nível 4: RH Recrutamento, Financeiro, Logística...
+      5: [5]           // Nível 5: Frotas(5)
     };
 
     const meusAcessos = permissoes[nivelUsuario] || [];
@@ -274,23 +276,14 @@
     cards.forEach(card => {
       const nivelNecessarioNoCard = Number(card.getAttribute('data-nivel'));
       
-      // Se o nível do card está na lista permitida do usuário, mostramos o card
       if (meusAcessos.includes(nivelNecessarioNoCard)) {
-        card.style.display = 'flex'; // Exibe como flex para manter o layout original
+        card.style.display = 'flex'; 
       } else {
-        card.remove(); // Remove do DOM por segurança visual
+        card.style.display = 'none';
+        card.remove(); 
       }
     });
   };
-
-  function acessarDashboard(url) {
-    window.open(url, '_blank');
-  }
-
-  function logout() {
-    localStorage.clear();
-    window.location.replace("index.html");
-  }
 </script>
 </body>
 </html>
