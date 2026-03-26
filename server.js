@@ -1,76 +1,289 @@
-import express from "express";
-import cors from "cors";
-import { createClient } from "@supabase/supabase-js";
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Configuração do Supabase
-const supabaseUrl = "https://wvpatscikilyayqgjvre.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2cGF0c2Npa2lseWF5cWdqdnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4ODI0NDgsImV4cCI6MjA2OTQ1ODQ0OH0.jU-pz8iNL_Vzo5K2ZiEBEBMPnDJnNBEfU9Cn2-fRq4c";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Rota para teste de conexão simples
-app.get("/test-connection", async (req, res) => {
-  try {
-    const { data, error } = await supabase.from("login").select("usuario").limit(1);
-
-    if (error) {
-      console.error("Erro Supabase:", error);
-      return res.status(500).json({ success: false, mensagem: "Erro interno no servidor" });
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Central de Dashboards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+        --primary-color: #2563eb;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --text-color: #1e293b;
     }
 
-    return res.json({ success: true, mensagem: "Conexão com Supabase OK!", data });
-  } catch (err) {
-    console.error("Erro inesperado:", err);
-    return res.status(500).json({ success: false, mensagem: "Erro no servidor" });
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        min-height: 100vh;
+        padding: 2rem;
+        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .btn-logout {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.75rem 1.25rem;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        color: #ef4444;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        z-index: 100; /* Aumentado para garantir clique */
+    }
+
+    .btn-logout:hover {
+        background: #fef2f2;
+        border-color: #fecaca;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(239, 68, 68, 0.1);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 4rem;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        color: #0f172a;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    header p {
+        color: #64748b;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .grid-dashboards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    .card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 2rem;
+        display: none; /* Mantido como none, o JS vai ativar */
+        align-items: center;
+        gap: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .card::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0; width: 4px;
+        background: var(--primary-color);
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        border-color: transparent;
+    }
+    
+    .card:hover::before { opacity: 1; }
+
+    .icon-box {
+        width: 64px; height: 64px;
+        background: #eff6ff;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover .icon-box {
+        background: var(--primary-color);
+        color: #fff;
+        transform: rotate(-5deg) scale(1.1);
+    }
+
+    .card-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .card-content span { font-size: 0.9rem; color: #64748b; }
+
+    .arrow {
+        font-size: 1.5rem;
+        color: #cbd5e1;
+        transition: 0.3s;
+        margin-left: auto;
+    }
+
+    .card:hover .arrow {
+        color: var(--primary-color);
+        transform: translateX(5px);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  
+  <button onclick="logout()" class="btn-logout">
+    <i class='bx bx-log-out'></i> Sair
+  </button>
+
+  <main class="container">
+    <header>
+        <h1>Central de Dados</h1>
+        <p>Selecione um departamento para visualizar os indicadores.</p>
+    </header>
+
+    <div class="grid-dashboards" id="gridDashboards">
+      
+      <div class="card" data-nivel="1" onclick="acessarDashboard('https://app.powerbi.com/reportEmbed?reportId=b799a3b1-0558-4eef-80a3-9532c7afeebf&autoAuth=true&ctid=bc7a02d4-bde0-4789-aec7-da1142be24a1')">
+        <div class="icon-box"><i class='bx bx-dollar-circle'></i></div>
+        <div class="card-content">
+            <h3>Financeiro</h3>
+            <span>Contas a Pagar & Receber</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+      <div class="card" data-nivel="2" onclick="acessarDashboard('https://app.powerbi.com/groups/db856598-7716-4d80-a745-d179ca08f75f/reports/bc559057-d1ba-4af9-a064-e1380da76e27/d5e64ec0a38d310171ad?experience=power-bi')">
+        <div class="icon-box"><i class='bx bx-package'></i></div>
+        <div class="card-content">
+            <h3>Logística</h3>
+            <span>Controle de Estoque</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+      <div class="card" data-nivel="4" onclick="acessarDashboard('https://app.powerbi.com/groups/a9733c5a-6493-4931-bae6-3e67e335d2c4/reports/f111e63a-06ed-40a9-b846-9c750173f222/d73ba8dd702a268cdd17?experience=power-bi')">
+        <div class="icon-box"><i class='bx bx-group'></i></div>
+        <div class="card-content">
+            <h3>Recursos Humanos</h3>
+            <span>Recrutamento e Seleção</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+      <div class="card" data-nivel="5" onclick="acessarDashboard('https://app.powerbi.com/groups/64b53d3f-b329-4069-9a5d-c4b80e65a689/reports/6299d3b1-18d1-4f0f-8532-df6976fbf8bf/7a757a550cf75f8ed608?experience=power-bi')">
+        <div class="icon-box"><i class='bx bxs-truck'></i></div>
+        <div class="card-content">
+            <h3>Frotas</h3>
+            <span>Gestão de Veículos</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+      <div class="card" data-nivel="2" onclick="acessarDashboard('https://app.powerbi.com/reportEmbed?reportId=1be42d28-dd79-4f04-a120-4c894d14e69d&autoAuth=true&ctid=bc7a02d4-bde0-4789-aec7-da1142be24a1')">
+        <div class="icon-box"><i class='bx bx-time'></i></div> 
+        <div class="card-content">
+            <h3>Recursos Humanos</h3>
+            <span>Espelho de Ponto</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+      <div class="card" data-nivel="3" onclick="acessarDashboard('https://app.powerbi.com/reportEmbed?reportId=a8d240c0-b1ea-44d2-b65b-ae09f0cd2c6e&autoAuth=true&ctid=bc7a02d4-bde0-4789-aec7-da1142be24a1')">
+        <div class="icon-box"><i class='bx bx-bar-chart-alt'></i></div> 
+        <div class="card-content">
+            <h3>Planejamento</h3>
+            <span>Planejamento 2026</span>
+        </div>
+        <i class='bx bx-chevron-right arrow'></i>
+      </div>
+
+    </div>
+  </main>
+
+<script>
+  // Função de logout movida para fora para garantir acesso global
+  function logout() {
+    console.log("Saindo...");
+    localStorage.clear();
+    window.location.replace("index.html");
   }
-});
 
-// Rota de login
-app.post("/login", async (req, res) => {
-  const { usuario, senha } = req.body;
-
-  if (!usuario || !senha) {
-    return res.status(400).json({ success: false, mensagem: "Usuário e senha são obrigatórios." });
+  function acessarDashboard(url) {
+    window.open(url, '_blank');
   }
 
-  try {
-    const { data, error } = await supabase
-      .from("login")
-      .select("usuario, nivel_permissao")
-      .eq("usuario", usuario)
-      .eq("senha", senha)
-      .limit(1);
-
-    if (error) {
-      console.error("Erro Supabase:", error);
-      return res.status(500).json({ success: false, mensagem: "Erro interno no servidor" });
+  window.onload = () => {
+    const nivelUsuario = Number(localStorage.getItem("nivel_permissao"));
+    console.log("Nível do usuário logado:", nivelUsuario);
+    
+    if (!nivelUsuario) {
+      alert("Faça login para acessar os dashboards.");
+      window.location.replace("index.html");
+      return;
     }
 
-    if (data.length === 0) {
-      return res.status(401).json({ success: false, mensagem: "Usuário ou senha inválidos" });
-    }
+    // MAPA DE PERMISSÕES CORRIGIDO
+    const permissoes = {
+      1: [1, 3],       // Nível 1: Financeiro(1) e Planejamento(3)
+      2: [2],          // Nível 2: Logística e RH Ponto(2)
+      3: [3],          // Nível 3: Planejamento(3)
+      4: [1, 2, 3, 4], // Nível 4: RH Recrutamento, Financeiro, Logística...
+      5: [5]           // Nível 5: Frotas(5)
+    };
 
-    // Login OK
-    return res.json({
-      success: true,
-      usuario: data[0].usuario,
-      nivel_permissao: data[0].nivel_permissao
+    const meusAcessos = permissoes[nivelUsuario] || [];
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const nivelNecessarioNoCard = Number(card.getAttribute('data-nivel'));
+      
+      if (meusAcessos.includes(nivelNecessarioNoCard)) {
+        card.style.display = 'flex'; 
+      } else {
+        card.style.display = 'none';
+        card.remove(); 
+      }
     });
-
-  } catch (err) {
-    console.error("Erro inesperado:", err);
-    return res.status(500).json({ success: false, mensagem: "Erro no servidor" });
-  }
-});
-
-// Porta do servidor
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-
-});
-
+  };
+</script>
+</body>
+</html>
