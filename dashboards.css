@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+/* === ANIMAÇÕES === */
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -20,6 +21,7 @@
   }
 }
 
+/* === RESET & BASE === */
 * {
   margin: 0;
   padding: 0;
@@ -38,175 +40,179 @@ body {
   padding: 20px;
 }
 
-/* Botão de Logout Flutuante */
+/* === BOTÃO DE LOGOUT FLUTUANTE === */
 .btn-logout {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
-    font-size: 13px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  font-size: 13px;
+  z-index: 100;
 }
 
 .btn-logout:hover {
-    background: rgba(253, 152, 9, 0.9);
-    border-color: rgba(253, 152, 9, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(253, 152, 9, 0.3);
+  background: rgba(253, 152, 9, 0.9);
+  border-color: rgba(253, 152, 9, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(253, 152, 9, 0.3);
 }
 
 .btn-logout:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
-    animation: slideUp 0.6s ease-out;
+/* === LAYOUT E CONTAINER === */
 .container {
   width: 100%;
   max-width: 900px;
+  animation: slideUp 0.6s ease-out both;
 }
 
 header {
-    text-align: center;
-    margin-bottom: 40px;
-    color: white;
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom700;
-    background: linear-gradient(135deg, #ffd36a, #ff9a1f, #ffb84a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text0px;
-    font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #ffd36a, #ff9a1f, #ffb84a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 header p {
-    opacity: 0.8;
-    font-weight: 300;
+  opacity: 0.8;
+  font-weight: 300;
 }
-4
-/* Grid dos Cards */
+
+/* === GRID DOS CARDS === */
 .grid-dashboards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 20px;
 }
 
-/* Estilo do Cartão individual */
+/* === ESTILO DOS CARDS === */
 .card {
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 16px;
-    display: flex;4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    color: white;
-    position: relative;
-    animation: slideUp 0.6s ease-out both;
-    overflow: hidden;
+  display: none; /* Controlado pelo JavaScript */
+  background: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 16px;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideUp 0.6s ease-out both;
 }
 
+/* Efeito de brilho passando pelo card no Hover */
 .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    transition: left
-    background: linear-gradient(135deg, #fd9809, #ffae00);
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: white;
-    box-shadow: 0 4px 10px rgba(253, 152, 9, 0.3);
-    transition: all 0.3s ease;
-    flex-shrink: 0;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
 }
-
-.card:hover .icon-box {
-    transform: scale(1.15) rotate(-5deg);
-    box-shadow: 0 8px 20px rgba(253, 152, 9, 0.5);
-    background: linear-gradient(135deg, #ffae00, #ffc107
-.card:nth-child(6) { animation-delay: 0.6s; }
 
 .card:hover {
-    transform: translateY(-8px); 
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(253, 152, 9, 0.15);
-    border-color: rgba(253, 152, 9, 0.6);
+  transform: translateY(-8px); 
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(253, 152, 9, 0.15);
+  border-color: rgba(253, 152, 9, 0.6);
 }
 
 .card:hover::before {
-    left: 100%
-    transform: translateY(-5px); 
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    border-color: rgba(253, 152, 9, 0.5);
+  left: 100%;
 }
 
-/* Ícone circular à esquerda */
+/* Delays para efeito cascata na entrada dos cards */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+.card:nth-child(7) { animation-delay: 0.7s; }
+.card:nth-child(8) { animation-delay: 0.8s; }
+
+/* === CAIXA DE ÍCONE (ICON-BOX) === */
 .icon-box {
-    width: 50px;
-    height: 50px;
-    min-width: 50px; /* Garante que não vai encolher */
-    background: linear-gradient(135deg, #fd9809, #ffae00);
-    border-radius: 12px;
-    display: fleall 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  background: linear-gradient(135deg, #fd9809, #ffae00);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(253, 152, 9, 0.3);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-.card:hover .arrow {
-    opacity: 1;
-    transform: translateX(8px);
-    color: #ffc107
+.card:hover .icon-box {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 8px 20px rgba(253, 152, 9, 0.5);
+  background: linear-gradient(135deg, #ffae00, #ffc107);
+}
 
-/* Texto do Card */
+/* === CONTEÚDO TEXTUAL === */
 .card-content {
-    flex: 1; /* Ocupa o espaço restante */
-    overflow: hidden; /* Evita que texto longo quebre o layout */
+  flex: 1; 
+  overflow: hidden; 
 }
 
 .card-content h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    /* Adiciona "..." se o texto for muito longo */
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-content span {
-    font-size: 13px;
-    opacity: 0.7;
-    font-weight: 300;
+  font-size: 13px;
+  opacity: 0.7;
+  font-weight: 300;
 }
 
-/* Setinha à direita */
+/* === SETA DE INDICAÇÃO === */
 .arrow {
-    font-size: 24px;
-    opacity: 0.5;
-    transition: 0.3s;
+  font-size: 24px;
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: auto;
 }
 
 .card:hover .arrow {
-    opacity: 1;
-    transform: translateX(5px);
-    color: #fd9809;
+  opacity: 1;
+  transform: translateX(5px);
+  color: #ffc107;
 }
