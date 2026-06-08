@@ -91,10 +91,10 @@
     }
 
     .card {
+        display: none; /* O JS ativa apenas os permitidos */
         background: var(--card-bg);
         border-radius: 20px;
         padding: 2rem;
-        display: none; /* Mantido como none, o JS vai ativar */
         align-items: center;
         gap: 1.5rem;
         cursor: pointer;
@@ -293,10 +293,11 @@
     cards.forEach(card => {
       const nivelNecessarioNoCard = Number(card.getAttribute('data-nivel'));
       
+      // Correção aplicada aqui: removido o ".style" duplicado e removido o ".remove()"
       if (meusAcessos.includes(nivelNecessarioNoCard)) {
-        card.style.style.display = 'flex'; 
+        card.style.display = 'flex'; 
       } else {
-        card.remove(); 
+        card.style.display = 'none'; 
       }
     });
   };
